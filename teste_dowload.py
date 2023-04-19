@@ -27,10 +27,10 @@ class AzureBlobFileDownloader:
         x = False
 
         conexao = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="bdyoutube"
+            host='interclasse-2023.mariadb.database.azure.com',
+            database='interclasse',
+            user='diegos@interclasse-2023',
+            password='senai@mange2023'
         )
 
         cursor = conexao.cursor()
