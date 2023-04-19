@@ -3,13 +3,14 @@ import face_recognition as fr
 import cv2
 from read import so_return
 
-rostos_conhecidos, nomes_dos_rostos = so_return()
 video_capture = cv2.VideoCapture(0)
 
 count = 0
 nome_teste = ""
 
 while True:
+    rostos_conhecidos, nomes_dos_rostos = so_return()
+
     ret, frame = video_capture.read()
 
     localizacao_dos_rostos = fr.face_locations(frame)
@@ -17,7 +18,6 @@ while True:
 
     for (top, right, bottom, left), rosto_desconhecido in zip(localizacao_dos_rostos, rosto_desconhecidos):
         resultados = fr.compare_faces(rostos_conhecidos, rosto_desconhecido)
-        print(resultados)
 
         face_distances = fr.face_distance(rostos_conhecidos, rosto_desconhecido)
 
@@ -27,7 +27,7 @@ while True:
             contador = 0
             if resultados[i] == True:
                 contador += 1
-        
+
         if contador > 1:
             count = 0
             nome = "Desconhecido"
@@ -38,13 +38,11 @@ while True:
                 count += 1
             else:
                 count = 0
-            
+
             nome_teste = nome
         else:
             count = 0
             nome = "Desconhecido"
-
-        
 
         # Ao redor do rosto
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
@@ -61,8 +59,9 @@ while True:
         if count == 5:
             print(nome)
             count = 0
-        elif count == 0:
-            print(nome)
+
+    rostos_conhecidos.clear()
+    nomes_dos_rostos.clear()
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
