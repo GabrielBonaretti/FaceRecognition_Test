@@ -2,6 +2,7 @@ import numpy as np
 import face_recognition as fr
 import cv2
 from read import so_return
+from teste import api
 
 video_capture = cv2.VideoCapture(0)
 
@@ -25,7 +26,7 @@ while True:
 
         for i in range(len(resultados)):
             contador = 0
-            if resultados[i] == True:
+            if resultados[i]:
                 contador += 1
 
         if contador > 1:
@@ -47,16 +48,11 @@ while True:
         # Ao redor do rosto
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-        # Embaixo
-        cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        font = cv2.FONT_HERSHEY_SIMPLEX
-
-        # Texto
-        cv2.putText(frame, nome, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-
         cv2.imshow('Webcam_facerecognition', frame)
 
-        if count == 5:
+        print(count)
+        if count == 30:
+            # api(nome_face=nome)
             print(nome)
             count = 0
 
