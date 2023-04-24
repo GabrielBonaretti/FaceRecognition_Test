@@ -27,15 +27,15 @@ class AzureBlobFileDownloader:
         x = False
 
         conexao = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="bdyoutube"
+            host="interclasse-2023.mariadb.database.azure.com",
+            user="diegos@interclasse-2023",
+            password="senaimange2023",
+            database="interclasse"
         )
 
         cursor = conexao.cursor()
 
-        comando = 'SELECT testecol FROM teste2'
+        comando = 'SELECT nome FROM faces'
         cursor.execute(comando)
         cadastrados = cursor.fetchall()
 
@@ -43,13 +43,10 @@ class AzureBlobFileDownloader:
         for i in range(len(cadastrados)):
             nomes.append(cadastrados[i][0])
 
-        print(nomes)
-
         my_blobs = self.my_container.list_blobs()
         for blob in my_blobs:
             name_jpeg = blob.values()[0]
-            name = name_jpeg.replace('.', " ").split()[0]
-            if name not in nomes:
+            if name_jpeg not in nomes:
                 print(f"{blob.name} cadastrado")
                 x = True
                 bytes = self.my_container.get_blob_client(blob).download_blob().readall()
