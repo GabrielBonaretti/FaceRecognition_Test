@@ -45,13 +45,8 @@ while True:
             count = 0
             nome = "Desconhecido"
 
-        # Ao redor do rosto
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-
-        cv2.imshow('Webcam_facerecognition', frame)
-
         print(count)
-        if count == 10:
+        if count == 5:
             api(nome_face=nome)
             print(nome)
             count = 0
