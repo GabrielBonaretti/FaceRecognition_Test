@@ -4,15 +4,15 @@ import numpy as np
 
 def so_return():
     conexao = mysql.connector.connect(
-        host='interclasse-2023.mariadb.database.azure.com',
-        database='interclasse',
-        user='diegos@interclasse-2023',
-        password='senaimange2023'
+        host='localhost',
+        database='bdyoutube',
+        user='root',
+        password=''
     )
 
     cursor = conexao.cursor()
 
-    comando = 'SELECT * FROM faces'
+    comando = 'SELECT * FROM teste2'
     cursor.execute(comando)
     resultado = cursor.fetchall()  # ler o banco de dados (read)  # retorna uma lista
 

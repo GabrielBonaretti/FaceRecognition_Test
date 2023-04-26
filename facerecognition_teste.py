@@ -51,8 +51,8 @@ while True:
         cv2.imshow('Webcam_facerecognition', frame)
 
         print(count)
-        if count == 30:
-            # api(nome_face=nome)
+        if count == 10:
+            api(nome_face=nome)
             print(nome)
             count = 0
 

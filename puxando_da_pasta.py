@@ -8,7 +8,6 @@ def reconhece_face(url_foto):
     foto = fr.load_image_file(url_foto)
     rostos = fr.face_encodings(foto)
 
-    print(fr.face_encodings(foto))
     if len(rostos) > 0:
         return True, rostos
 
@@ -27,7 +26,3 @@ def get_rostos():
                 rostos_conhecidos.append(nome[1][0])
 
     return rostos_conhecidos, nomes_dos_rostos
-
-
-rosto, nome = get_rostos()
-print(rosto, nome)

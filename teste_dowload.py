@@ -1,5 +1,7 @@
 import os
 from time import sleep
+from puxando_da_pasta import get_rostos
+from puxando_da_pasta import reconhece_face
 
 from azure.storage.blob import BlobServiceClient, BlobClient
 import mysql.connector
@@ -27,15 +29,15 @@ class AzureBlobFileDownloader:
         x = False
 
         conexao = mysql.connector.connect(
-            host="interclasse-2023.mariadb.database.azure.com",
-            user="diegos@interclasse-2023",
-            password="senaimange2023",
-            database="interclasse"
+            host="localhost",
+            user="root",
+            password="",
+            database="bdyoutube"
         )
 
         cursor = conexao.cursor()
 
-        comando = 'SELECT nome FROM faces'
+        comando = 'SELECT testecol FROM teste2'
         cursor.execute(comando)
         cadastrados = cursor.fetchall()
 
@@ -51,6 +53,8 @@ class AzureBlobFileDownloader:
                 x = True
                 bytes = self.my_container.get_blob_client(blob).download_blob().readall()
                 self.save_blob(blob.name, bytes)
+
+
             else:
                 print(f"{blob.name} já existe")
                 x = False
@@ -58,7 +62,3 @@ class AzureBlobFileDownloader:
         nomes.clear()
 
         return x
-
-
-azure_blob_file_downloader = AzureBlobFileDownloader()
-azure_blob_file_downloader.download_all_blobs_in_container()
